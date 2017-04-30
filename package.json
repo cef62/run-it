@@ -1,0 +1,73 @@
+{
+  "name": "2017-jsday",
+  "version": "0.0.1",
+  "main": "index.js",
+  "author": "Matteo Ronchi",
+  "license": "MIT",
+  "engineStrict": true,
+  "engines": {
+    "node": ">=6.9"
+  },
+  "scripts": {
+    "flow-typed": "flow-typed install",
+    "clean": "rm -rf coverage dist tmp",
+    "format:src": "prettier --single-quote --trailing-comma all --semi false --write 'src/**/*.js'",
+    "format:tests": "prettier --single-quote --trailing-comma es5 --semi false --write '{__{tests,mocks}__,tests}/**/*.js'",
+    "format": "npm run format:src && npm run format:tests",
+    "eslint-check": "eslint --print-config .eslintrc.js | eslint-config-prettier-check",
+    "lint": "eslint .",
+    "postlint": "npm run typecheck",
+    "typecheck": "flow check",
+    "pretest": "npm run lint",
+    "test": "npm run test-only",
+    "test-only": "jest --coverage",
+    "test:watch": "jest --watch",
+    "build": "babel src/**/*.js -d dist",
+    "build:watch": "babel --watch src/**/*.js -d dist"
+  },
+  "lint-staged": {
+    "src/**/*.js": [
+      "prettier --single-quote --trailing-comma all --semi false --write",
+      "git add"
+    ],
+    "{__{tests,mocks}__,tests}/**/*.js": [
+      "prettier --single-quote --trailing-comma es5 --semi false --write",
+      "git add"
+    ]
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "moduleFileExtensions": [
+      "js"
+    ],
+    "coverageDirectory": "coverage",
+    "collectCoverageFrom": [
+      "index.js",
+      "src/**/*.js"
+    ]
+  },
+  "devDependencies": {
+    "babel-cli": "6.24.1",
+    "babel-core": "6.24.1",
+    "babel-eslint": "7.2.3",
+    "babel-jest": "19.0.0",
+    "babel-plugin-transform-async-to-generator": "6.24.1",
+    "babel-plugin-transform-es2015-modules-commonjs": "6.24.1",
+    "babel-plugin-transform-flow-strip-types": "6.22.0",
+    "babel-plugin-transform-runtime": "6.23.0",
+    "babel-preset-env": "1.4.0",
+    "babel-preset-stage-2": "6.24.1",
+    "babel-runtime": "6.23.0",
+    "eslint": "3.19.0",
+    "eslint-config-airbnb-base": "false11.1.3",
+    "eslint-config-prettier": "1.7.0",
+    "eslint-plugin-flowtype": "2.32.1",
+    "eslint-plugin-import": "2.2.0",
+    "eslint-plugin-prettier": "2.0.1",
+    "flow-bin": "0.45.0",
+    "flow-typed": "false2.1.2",
+    "jest": "19.0.2",
+    "lint-staged": "3.4.1",
+    "prettier": "1.2.2"
+  }
+}

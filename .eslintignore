@@ -1,0 +1,6 @@
+__tests__/fixtures
+node_modules
+flow-typed
+coverage
+dist
+tmp
