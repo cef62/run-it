@@ -8,7 +8,11 @@
   "engines": {
     "node": ">=6.9"
   },
+  "bin": {
+    "run-it": "dist/src/index.js"
+  },
   "scripts": {
+    "run-it": "dist/src/index.js",
     "flow-typed": "flow-typed install",
     "clean": "rm -rf coverage dist tmp",
     "format:src": "prettier --single-quote --trailing-comma all --semi false --write 'src/**/*.js'",
@@ -69,5 +73,10 @@
     "jest": "19.0.2",
     "lint-staged": "3.4.1",
     "prettier": "1.2.2"
+  },
+  "dependencies": {
+    "cross-spawn": "5.1.0",
+    "shelljs": "0.7.7",
+    "yargs": "8.0.1"
   }
 }
