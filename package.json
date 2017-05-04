@@ -12,22 +12,23 @@
     "run-it": "dist/src/index.js"
   },
   "scripts": {
-    "run-it": "dist/src/index.js",
+    "run-it:debug": "node --inspect --debug-brk dist/index.js",
+    "run-it": "dist/index.js",
     "flow-typed": "flow-typed install",
     "clean": "rm -rf coverage dist tmp",
     "format:src": "prettier --single-quote --trailing-comma all --semi false --write 'src/**/*.js'",
     "format:tests": "prettier --single-quote --trailing-comma es5 --semi false --write '{__{tests,mocks}__,tests}/**/*.js'",
     "format": "npm run format:src && npm run format:tests",
     "eslint-check": "eslint --print-config .eslintrc.js | eslint-config-prettier-check",
-    "lint": "eslint .",
+    "lint": "eslint src",
     "postlint": "npm run typecheck",
     "typecheck": "flow check",
     "pretest": "npm run lint",
     "test": "npm run test-only",
     "test-only": "jest --coverage",
     "test:watch": "jest --watch",
-    "build": "babel src/**/*.js -d dist",
-    "build:watch": "babel --watch src/**/*.js -d dist"
+    "build": "babel src --out-dir dist",
+    "build:watch": "babel --watch src --out-dir dist"
   },
   "lint-staged": {
     "src/**/*.js": [
@@ -76,6 +77,10 @@
   },
   "dependencies": {
     "cross-spawn": "5.1.0",
+    "dotenv": "4.0.0",
+    "fs-extra": "3.0.0",
+    "is-windows": "1.0.1",
+    "nodegit": "0.18.3",
     "shelljs": "0.7.7",
     "yargs": "8.0.1"
   }
