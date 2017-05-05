@@ -14,7 +14,7 @@ export const handler = async () => {
     const {
       settings: { repositoriesRoot },
       repositories,
-    }: Config = (await loadConfig()) || {}
+    }: Config = await loadConfig()
 
     await pullRepositories(repositoriesRoot, repositories)
     echo('Repositories update complete.')

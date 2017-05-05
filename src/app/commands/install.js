@@ -14,7 +14,7 @@ export const handler = async () => {
     const {
       settings: { repositoriesRoot },
       repositories,
-    }: Config = (await loadConfig()) || {}
+    }: Config = await loadConfig()
 
     // TODO: notify if no repository is available
     // TODO: define rule on how to map script (easy way: define the path to the

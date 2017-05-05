@@ -7,8 +7,8 @@ import { echo } from 'shelljs'
 const EXEC_PATH: string = process.cwd()
 
 export const parseSettings = (source: $Shape<Settings> = {}): Settings => {
-  const { repositoriesRoot = './tmp' } = source
-  return { repositoriesRoot }
+  const { repositoriesRoot = './tmp', extensions = ['js', 'sh'] } = source
+  return { repositoriesRoot, extensions }
 }
 
 export const parseRepositories = (source: Repositories = {}): Repositories =>

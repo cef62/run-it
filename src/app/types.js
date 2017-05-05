@@ -1,6 +1,6 @@
 /* @flow */
 
-export type Settings = { repositoriesRoot: string }
+export type Settings = { repositoriesRoot: string, extensions: Array<string> }
 export type Repository = { url: string, root?: string }
 export type Repositories = { [string]: Repository }
 

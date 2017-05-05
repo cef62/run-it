@@ -1,5 +1,7 @@
 /** @flow */
 
+import type { Config } from '../types'
+
 type Argv = {
   target: string,
   params?: string,
@@ -7,8 +9,9 @@ type Argv = {
 }
 
 import { echo } from 'shelljs'
+import loadConfig from '../utils/loadConfig'
 import proc from '../proc'
-import getCommandExecutor from '../getCommandExecutor'
+import resolveCommand from '../resolveCommand'
 import getEnv from '../utils/getEnv'
 import parseEnvVariables from '../utils/parseEnvVariables'
 
@@ -36,11 +39,21 @@ const parseArgv = (argv: Argv, procArgv: Array<string>): Object => {
   return { env, target, params }
 }
 
-export const handler = (argv: Argv): void => {
-  const { env, target, params } = parseArgv(argv, process.argv)
-  const parsedEnv: Object = getEnv(parseEnvVariables(env))
-  // echo('RUN IT -->', { parsedEnv, target, params })
+export const handler = async (argv: Argv): Promise<void> => {
+  try {
+    const config: Config = await loadConfig()
 
-  const cmd: string = getCommandExecutor(target)
-  proc(cmd, parsedEnv, params)
+    const { env, target, params } = parseArgv(argv, process.argv)
+    const parsedEnv: Object = getEnv(parseEnvVariables(env))
+    // echo('RUN IT -->', { parsedEnv, target, params })
+
+    const cmd: ?string = await resolveCommand(target, config)
+    if (cmd) {
+      await proc(cmd, parsedEnv, params)
+    } else {
+      echo(`No match found for command: ${target}`)
+    }
+  } catch (e) {
+    echo('Something went wrong executing a command', e)
+  }
 }

@@ -1,6 +1,7 @@
 module.exports = {
   settings: {
     repositoriesRoot: './tmp',
+    extensions: ['js', 'sh']
   },
   repositories: {
     snapguidist: {
