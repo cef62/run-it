@@ -1,5 +1,5 @@
 module.exports = {
-  config: {
+  settings: {
     repositoriesRoot: './tmp',
   },
   repositories: {
@@ -8,6 +8,7 @@ module.exports = {
     },
     'uui-components': {
       url: 'git@github.com:WorkWave/volo-unified-ui-components.git',
+      root: 'scripts'
     },
   },
   scripts: {
