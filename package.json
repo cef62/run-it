@@ -1,7 +1,7 @@
 {
   "name": "2017-jsday",
   "version": "0.0.1",
-  "main": "index.js",
+  "main": "dist/bin/run-it.js",
   "author": "Matteo Ronchi",
   "license": "MIT",
   "engineStrict": true,
@@ -9,11 +9,11 @@
     "node": ">=6.9"
   },
   "bin": {
-    "run-it": "dist/src/index.js"
+    "run-it": "dist/bin/run-it.js"
   },
   "scripts": {
-    "run-it:debug": "node --inspect --debug-brk dist/index.js",
-    "run-it": "dist/index.js",
+    "run-it:debug": "node --inspect --debug-brk dist/bin/run-it.js",
+    "run-it": "dist/bin/run-it.js",
     "flow-typed": "flow-typed install",
     "clean": "rm -rf coverage dist tmp",
     "format:src": "prettier --single-quote --trailing-comma all --semi false --write 'src/**/*.js'",
@@ -47,7 +47,6 @@
     ],
     "coverageDirectory": "coverage",
     "collectCoverageFrom": [
-      "index.js",
       "src/**/*.js"
     ]
   },
