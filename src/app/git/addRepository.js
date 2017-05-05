@@ -2,11 +2,7 @@
 import { echo } from 'shelljs'
 import fse from 'fs-extra'
 import NodeGit from 'nodegit'
-
-// see: https://github.com/nodegit/nodegit/issues/1133
-// see: http://radek.io/2015/10/27/nodegit/
-const credentials = (url, userName) => NodeGit.Cred.sshKeyFromAgent(userName)
-const certificateCheck = () => 1
+import composeCallbacks from './composeCallbacks'
 
 export default async function addRepository(
   repoPath: string,
@@ -15,11 +11,7 @@ export default async function addRepository(
   try {
     await fse.remove(localPath)
 
-    const callbacks = { certificateCheck }
-    if (!repoPath.startsWith('http')) {
-      // $FlowFixMe
-      Object.assign(callbacks, { credentials })
-    }
+    const callbacks = composeCallbacks(repoPath)
 
     const repo = await NodeGit.Clone(repoPath, localPath, {
       fetchOpts: { callbacks },

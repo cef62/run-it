@@ -23,6 +23,6 @@ export const handler = async () => {
     await addRepositories(repositoriesRoot, repositories)
     echo('Repositories cloning complete.')
   } catch (e) {
-    echo('Something went wrong', e)
+    echo('Something went wrong cloning repositories', e)
   }
 }
