@@ -5,4 +5,5 @@ import yargs from 'yargs'
 import { config as loadEnvFromFile } from 'dotenv'
 
 loadEnvFromFile()
-yargs.commandDir('../app/commands').demandCommand().help().argv
+yargs.commandDir('../app/commands', { recurse: true }).demandCommand().help()
+  .argv

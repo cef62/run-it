@@ -1,6 +1,8 @@
 /** @flow */
 
-export { default as handler } from './handler'
+import handlerFn from './handler'
+
+export const handler = handlerFn
 
 export const command = 'install'
 

@@ -8,7 +8,7 @@ const EXEC_PATH: string = process.cwd()
 
 export const parseSettings = (source: $Shape<Settings> = {}): Settings => {
   const {
-    repositoriesRoot = './tmp',
+    repositoriesRoot = './repositories',
     extensions = ['js', 'sh'],
     depsManager = 'npm',
   } = source
