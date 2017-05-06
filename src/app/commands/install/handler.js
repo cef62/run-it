@@ -1,36 +1,15 @@
 /** @flow */
-import type { Config } from '../types'
-
-type Argv = {
-  'ignoreDeps': boolean,
-  'depsOnly': boolean,
-}
+import type { Config } from '../../types'
+import type { Argv } from './types'
 
 import { echo } from 'shelljs'
 import chalk from 'chalk'
-import addRepositories from '../git/addRepositories'
-import addDependencies from '../deps/addDependencies'
-import loadConfig from '../utils/loadConfig'
-import { log, succeed, warn, error } from '../utils/logger'
+import addRepositories from '../../git/addRepositories'
+import addDependencies from '../../deps/addDependencies'
+import loadConfig from '../../utils/loadConfig'
+import { log, succeed, warn, error } from '../../utils/logger'
 
-export const command = 'install'
-
-export const describe = 'Clones linked script repositories'
-
-export const builder = {
-  'ignore-deps': {
-    alias: 'ignoreDeps',
-    default: false,
-    type: 'boolean',
-  },
-  'deps-only': {
-    alias: 'depsOnly',
-    default: false,
-    type: 'boolean',
-  },
-}
-
-export const handler = async (argv: Argv) => {
+export default async function handler(argv: Argv): Promise<void> {
   try {
     const { ignoreDeps, depsOnly } = argv
     const {
