@@ -1,6 +1,6 @@
 /** @flow */
 
-import type { Config } from '../types'
+import type { Config, SpawnableCommand } from '../types'
 
 type Argv = {
   target: string,
@@ -8,6 +8,7 @@ type Argv = {
 }
 
 import { echo } from 'shelljs'
+import chalk from 'chalk'
 import loadConfig from '../utils/loadConfig'
 import proc from '../proc'
 import resolveCommand from '../resolveCommand'
@@ -44,13 +45,15 @@ export const handler = async (argv: Argv): Promise<void> => {
 
     const { env, target, params } = parseArgv(argv, process.argv)
     const parsedEnv: Object = getEnv(parseEnvVariables(env))
-    // echo('RUN IT -->', { parsedEnv, target, params })
 
-    const cmd: ?string = await resolveCommand(target, config)
-    if (cmd) {
+    const command: ?SpawnableCommand = await resolveCommand(target, config)
+    if (command) {
+      const { cmd, args } = command
+      params.unshift(...args)
+
       await proc(cmd, parsedEnv, params)
     } else {
-      echo(`No match found for command: ${target}`)
+      echo(chalk.yellow(`No match found for command: ${target}`))
     }
   } catch (e) {
     echo('Something went wrong executing a command', e)

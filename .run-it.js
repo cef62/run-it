@@ -14,12 +14,18 @@ module.exports = {
     },
   },
   scripts: {
-    'flow-typed': 'flow-typed install',
     clean: 'rm -rf coverage dist tmp',
     lint: {
-      default: 'eslint src',
-      'check-rules': 'eslint --print-config .eslintrc.js | eslint-config-prettier-check',
+      default: {
+        script: 'eslint src',
+        description: 'Run linter on source code',
+      },
     },
     typecheck: 'flow check',
+    utils: {
+      common: {
+        say: 'echo you said:\n',
+      }
+    },
   },
 }

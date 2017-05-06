@@ -13,6 +13,8 @@ export default async function proc(
   commandArgs: Array<*> = [],
 ): Promise<void> {
   return new Promise((resolve, reject) => {
+    echo(chalk.gray(`$ ${command} ${commandArgs.join(' ')}`))
+
     const exec: child_process$ChildProcess = spawn(
       normalizeCommand(command),
       commandArgs.map(normalizeCommand),

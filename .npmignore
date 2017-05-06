@@ -1,0 +1,13 @@
+# dev-oly folders
+.babelrc
+.eslintrc
+.bookignore
+book.json
+test
+umd
+coverage
+examples
+
+# doc folders
+docs
+_book
