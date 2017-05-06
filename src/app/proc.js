@@ -1,9 +1,9 @@
 /* @flow */
 import { spawn } from 'cross-spawn'
-import { echo } from 'shelljs'
 import chalk from 'chalk'
 import getEnv from './utils/getEnv'
 import normalizeCommand from './utils/normalizeCommand'
+import { info, succeed, error } from './utils/logger'
 
 const NON_ERROR: number = 0
 
@@ -11,9 +11,9 @@ export default async function proc(
   command: string,
   env: Object = {},
   commandArgs: Array<*> = [],
-): Promise<void> {
+): Promise<Object | number> {
   return new Promise((resolve, reject) => {
-    echo(chalk.gray(`$ ${command} ${commandArgs.join(' ')}`))
+    info(chalk.dim(`$ ${command} ${commandArgs.join(' ')}`), true)
 
     const exec: child_process$ChildProcess = spawn(
       normalizeCommand(command),
@@ -31,14 +31,17 @@ export default async function proc(
     process.on('SIGHUP', () => exec.kill('SIGHUP'))
 
     exec.stdout.on('data', data => {
-      echo(chalk.blue(data.toString('utf8')))
+      info(data.toString('utf8'), true)
     })
 
     exec.stderr.on('data', data => {
-      echo(chalk.red(data.toString('utf8')))
+      error(data.toString('utf8'), true)
     })
 
-    exec.on('exit', process.exit)
+    exec.on('exit', () => {
+      succeed('Command executed')
+      resolve(NON_ERROR)
+    })
 
     exec.on('error', error => {
       reject({

@@ -1,7 +1,9 @@
 /** @flow */
 import { echo } from 'shelljs'
 import NodeGit from 'nodegit'
+import chalk from 'chalk'
 import composeCallbacks from './composeCallbacks'
+import { error } from '../utils/logger'
 
 export default async function pullRepository(
   repoPath: string,
@@ -16,6 +18,7 @@ export default async function pullRepository(
 
     return repo
   } catch (e) {
-    echo('Error adding repository', e)
+    error('Error adding repository')
+    echo(chalk.red(e))
   }
 }

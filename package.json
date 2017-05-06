@@ -84,6 +84,7 @@
     "manage-path": "2.0.0",
     "nodegit": "0.18.3",
     "object-path": "0.11.4",
+    "ora": "1.2.0",
     "shelljs": "0.7.7",
     "yargs": "8.0.1"
   }

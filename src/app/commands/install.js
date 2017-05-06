@@ -11,6 +11,7 @@ import chalk from 'chalk'
 import addRepositories from '../git/addRepositories'
 import addDependencies from '../deps/addDependencies'
 import loadConfig from '../utils/loadConfig'
+import { log, succeed, warn, error } from '../utils/logger'
 
 export const command = 'install'
 
@@ -37,28 +38,33 @@ export const handler = async (argv: Argv) => {
       repositories,
     }: Config = await loadConfig()
 
-    // TODO: notify if no repository is available
+    if (!Object.keys(repositories).length) {
+      warn('No repositories to install in `.run-it.js`')
+      return
+    }
 
     if (depsOnly && ignoreDeps) {
-      echo(chalk.yellow(`Nothing to do, change your command options!`))
+      warn(`Nothing to do, change your command options!`)
       return
     }
 
     if (depsOnly) {
-      echo(chalk.yellow(`Ignoring to add Repositories`))
+      warn(`Ignoring to add Repositories`)
     } else {
-      echo(chalk.yellow(`Adding Repositories`))
+      log(`Adding Repositories`, true)
       await addRepositories(repositoriesRoot, repositories)
     }
 
     if (ignoreDeps) {
-      echo(chalk.yellow(`Ignoring Repositories dependencies`))
+      warn(`Ignoring Repositories dependencies`)
     } else {
-      echo(chalk.yellow(`Adding Repositories dependencies`))
+      log(`Adding Repositories dependencies`, true)
       await addDependencies(repositoriesRoot, depsManager, repositories)
     }
-    echo(chalk.yellow('Repositories cloning complete.'))
+
+    succeed('Repositories cloning complete.')
   } catch (e) {
-    echo('Something went wrong cloning repositories', e)
+    error('Something went wrong cloning repositories')
+    echo(chalk.red(e))
   }
 }

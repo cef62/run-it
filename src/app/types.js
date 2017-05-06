@@ -27,3 +27,18 @@ export type SpawnableCommand = {
   cmd: string,
   args?: Array<string>,
 }
+
+export type Spinner = {
+  start(): Spinner,
+  stop(): Spinner,
+  succeed(text: ?string): Spinner,
+  fail(text: ?string): Spinner,
+  warn(text: ?string): Spinner,
+  info(text: ?string): Spinner,
+  stopAndPersist(options: ?Object): Spinner,
+  clear(): Spinner,
+  render(): Spinner,
+  frame(): void,
+  text: string,
+  color: string,
+}

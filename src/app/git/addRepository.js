@@ -1,15 +1,19 @@
 /** @flow */
 import { echo } from 'shelljs'
+import chalk from 'chalk'
 import fse from 'fs-extra'
 import NodeGit from 'nodegit'
 import composeCallbacks from './composeCallbacks'
+import { log, succeed, error } from '../utils/logger'
 
 export default async function addRepository(
   repoPath: string,
   localPath: string,
 ): Promise<void> {
   try {
+    log(`Removing folder: '${localPath}'`, true)
     await fse.remove(localPath)
+    succeed(`Removed folder: '${localPath}'`)
 
     const callbacks = composeCallbacks(repoPath)
 
@@ -30,6 +34,7 @@ export default async function addRepository(
 
     return repo
   } catch (e) {
-    echo('Error adding repository', e)
+    error('Error adding repository')
+    echo(chalk.red(e))
   }
 }

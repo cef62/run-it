@@ -9,6 +9,7 @@ type Argv = {
 
 import { echo } from 'shelljs'
 import chalk from 'chalk'
+import { log, succeed, error } from '../utils/logger'
 import loadConfig from '../utils/loadConfig'
 import proc from '../proc'
 import resolveCommand from '../resolveCommand'
@@ -41,21 +42,29 @@ const parseArgv = (argv: Argv, procArgv: Array<string>): Object => {
 
 export const handler = async (argv: Argv): Promise<void> => {
   try {
+    log('Loading config', true)
+
     const config: Config = await loadConfig()
+    succeed('Configuration loaded')
 
     const { env, target, params } = parseArgv(argv, process.argv)
     const parsedEnv: Object = getEnv(parseEnvVariables(env))
 
+    log('Looking for a matching command', true)
     const command: ?SpawnableCommand = await resolveCommand(target, config)
+
     if (command) {
+      succeed('Command found')
+
       const { cmd, args } = command
       params.unshift(...args)
 
       await proc(cmd, parsedEnv, params)
     } else {
-      echo(chalk.yellow(`No match found for command: ${target}`))
+      error(`No match found for command: ${target}`)
     }
   } catch (e) {
-    echo('Something went wrong executing a command', e)
+    error('Something went wrong executing a command')
+    echo(chalk.red(e))
   }
 }
