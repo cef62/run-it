@@ -1,6 +1,6 @@
 module.exports = {
   settings: {
-    repositoriesRoot: './tmp',
+    repositoriesRoot: './.repositories',
     extensions: ['js', 'sh']
   },
   repositories: {
@@ -24,7 +24,7 @@ module.exports = {
     typecheck: 'flow check',
     utils: {
       common: {
-        say: 'echo you said:\n',
+        say: 'echo you said: ',
       }
     },
   },

@@ -22,3 +22,4 @@ jsconfig.json
 # Misc
 .DS_Store
 tmp/
+.repositories/

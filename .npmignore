@@ -11,3 +11,5 @@ examples
 # doc folders
 docs
 _book
+tmp
+.repositories

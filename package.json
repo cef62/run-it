@@ -1,12 +1,12 @@
 {
-  "name": "2017-jsday",
+  "name": "@cef62/run-it",
+  "description": "Run scripts from local and remote repositories",
   "version": "0.0.1",
-  "main": "dist/bin/run-it.js",
   "author": "Matteo Ronchi",
   "license": "MIT",
   "engineStrict": true,
   "engines": {
-    "node": ">=6.9"
+    "node": ">=7.9"
   },
   "bin": {
     "run-it": "dist/bin/run-it.js"
@@ -20,10 +20,8 @@
     "format:tests": "prettier --single-quote --trailing-comma es5 --semi false --write '{__{tests,mocks}__,tests}/**/*.js'",
     "format": "npm run format:src && npm run format:tests",
     "eslint-check": "eslint --print-config .eslintrc.js | eslint-config-prettier-check",
-    "lint": "eslint src",
-    "postlint": "npm run typecheck",
+    "lint": "eslint src __tests__",
     "typecheck": "flow check",
-    "pretest": "npm run lint",
     "test": "npm run test-only",
     "test-only": "jest --coverage",
     "test:watch": "jest --watch",

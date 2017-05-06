@@ -25,14 +25,6 @@ module.exports = {
   rules: {
     'prefer-arrow-callback': 0,
     'import/first': 0,
-    // 'flowtype/require-valid-file-annotation': [2, 'always'],
-    // 'flowtype/require-return-type': [
-    //   1,
-    //   'always',
-    //   {
-    //     excludeArrowFunctions: true,
-    //   },
-    // ],
     'prettier/prettier': [
       'error',
       { trailingComma: 'all', singleQuote: true, semi: false },
