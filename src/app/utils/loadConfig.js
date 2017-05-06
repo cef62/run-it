@@ -7,19 +7,23 @@ import { echo } from 'shelljs'
 const EXEC_PATH: string = process.cwd()
 
 export const parseSettings = (source: $Shape<Settings> = {}): Settings => {
-  const { repositoriesRoot = './tmp', extensions = ['js', 'sh'] } = source
-  return { repositoriesRoot, extensions }
+  const {
+    repositoriesRoot = './tmp',
+    extensions = ['js', 'sh'],
+    depsManager = 'npm',
+  } = source
+  return { repositoriesRoot, extensions, depsManager }
 }
 
 export const parseRepositories = (source: Repositories = {}): Repositories =>
   Object.keys(
     source,
   ).reduce((repos: Repositories, name: string): Repositories => {
-    const { url, root = '' }: Repository = source[name] || {}
+    const { url, root = '', deps }: Repository = source[name] || {}
     if (!name.trim().length || !url) {
       echo(`Invalid repository settings with key: ${name}`)
     } else {
-      repos[name] = { url, root }
+      repos[name] = { url, root, deps }
     }
     return repos
   }, {})

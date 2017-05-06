@@ -9,7 +9,8 @@ module.exports = {
     },
     'uui-components': {
       url: 'git@github.com:WorkWave/volo-unified-ui-components.git',
-      root: 'scripts'
+      root: 'scripts',
+      deps: 'package.json',
     },
   },
   scripts: {
