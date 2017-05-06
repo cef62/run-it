@@ -1,14 +1,16 @@
 {
   "plugins": [
-    ["transform-es2015-modules-commonjs"],
     ["transform-flow-strip-types"],
-    ["transform-async-to-generator"],
-    ["transform-runtime", {
-      "polyfill": false,
-      "regenerator": true
-    }],
     ["syntax-dynamic-import"],
     ["dynamic-import-node"]
+  ],
+  "presets": [
+    ["env", {
+      "targets": {
+        "node": 7.9
+      },
+      "debug": false
+    }]
   ],
   "env": {
     "production": {
