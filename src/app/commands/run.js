@@ -4,7 +4,6 @@ import type { Config } from '../types'
 
 type Argv = {
   target: string,
-  params?: string,
   env?: Array<string>,
 }
 
