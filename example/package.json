@@ -1,0 +1,18 @@
+{
+  "name": "@cef62/run-it-example",
+  "description": "run-it example",
+  "version": "0.0.0",
+  "author": "Matteo Ronchi",
+  "license": "MIT",
+  "engineStrict": true,
+  "engines": {
+    "node": ">=7.9"
+  },
+  "scripts": {
+    "run-it:debug": "node --inspect --debug-brk run-it",
+    "run-it": "run-it"
+  },
+  "devDependencies": {
+    "@cef62/run-it": "file:../"
+  }
+}
