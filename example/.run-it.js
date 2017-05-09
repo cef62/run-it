@@ -1,14 +1,12 @@
 module.exports = {
   settings: {
     repositoriesRoot: './.repositories',
-    extensions: ['js', 'sh']
+    extensions: ['js', 'sh'],
+    depsManager: 'yarn',
   },
   repositories: {
-    snapguidist: {
-      url: 'https://github.com/styleguidist/snapguidist.git',
-    },
-    'uui-components': {
-      url: 'git@github.com:WorkWave/volo-unified-ui-components.git',
+    'automation': {
+      url: 'git@github.com:cef62/automation-scripts.git',
       root: 'scripts',
       deps: 'package.json',
     },
